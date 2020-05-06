@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using AdvertApi.Services;
+using AdvertApi.HealthChecks;
 
 namespace AdvertApi
 {
@@ -30,6 +31,12 @@ namespace AdvertApi
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IAdvertStorageService, DynamoDBAdvertStorage>();
             services.AddControllers();
+            services.AddHealthChecks();
+            /* services.AddHealthChecks(checks =>
+           {
+               checks.AddCheck<StorageHealthCheck>("Storage", new TimeSpan(0, 1, 0));
+           }); */
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +56,7 @@ namespace AdvertApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
     }
