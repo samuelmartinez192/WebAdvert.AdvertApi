@@ -17,7 +17,7 @@ namespace AdvertApi.Services
             _mapper = mapper;
         }
 
-        public async Task<string> Add(Advert model)
+        public async Task<string> Add(AdvertModel model)
         {
             var dbModel = _mapper.Map<AdvertDbModel>(model);
 
@@ -45,7 +45,7 @@ namespace AdvertApi.Services
             }
         }
 
-        public async Task Confirm(ConfirmAdvert model)
+        public async Task Confirm(ConfirmAdvertModel model)
         {
             using (var client = new AmazonDynamoDBClient())
             {

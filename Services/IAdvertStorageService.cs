@@ -7,8 +7,8 @@ namespace AdvertApi.Services
 {
     public interface IAdvertStorageService
     {
-        Task<String> Add(Advert model);
-        Task Confirm(ConfirmAdvert model);
+        Task<String> Add(AdvertModel model);
+        Task Confirm(ConfirmAdvertModel model);
         Task<bool> CheckHealthAsync();
     }
 }

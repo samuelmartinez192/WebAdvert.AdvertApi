@@ -26,7 +26,7 @@ namespace AdvertApi.Controllers
         [Route("Create")]
         [ProducesResponseType(404)]
         [ProducesResponseType(201, Type = typeof(CreateAdvertResponse))]
-        public async Task<IActionResult> Create(Advert model)
+        public async Task<IActionResult> Create(AdvertModel model)
         {
             string recordId;
             try
@@ -49,7 +49,7 @@ namespace AdvertApi.Controllers
         [Route("Confirm")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
-        public async Task<ActionResult> Confirm(ConfirmAdvert model)
+        public async Task<ActionResult> Confirm(ConfirmAdvertModel model)
         {
             try
             {
