@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdvertApi.Models;
+using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using AutoMapper;
@@ -26,14 +27,23 @@ namespace AdvertApi.Services
             dbModel.CreationDateTime = DateTime.UtcNow;
             dbModel.Status = AdvertStatus.Pending;
 
-            using (var client = new AmazonDynamoDBClient())
+            try
             {
-                var table = await client.DescribeTableAsync("Adverts");
+               
 
-                using (var context = new DynamoDBContext(client))
+                using (var client = new AmazonDynamoDBClient())
                 {
-                    await context.SaveAsync(dbModel);
+                    var table = await client.DescribeTableAsync("Advert");
+
+                    using (var context = new DynamoDBContext(client))
+                    {
+                        await context.SaveAsync(dbModel);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
 
             return dbModel.Id;

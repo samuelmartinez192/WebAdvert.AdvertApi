@@ -19,11 +19,11 @@ namespace AdvertApi.Controllers
     [ApiController]
     [Route("adverts/v1")]
     [Produces("application/json")]
-    public class AdvertController : ControllerBase
+    public class Advert : ControllerBase
     {
         private readonly IAdvertStorageService _advertStorageService;
 
-        public AdvertController(IAdvertStorageService advertStorageService, IConfiguration configuration)
+        public Advert(IAdvertStorageService advertStorageService, IConfiguration configuration)
         {
             _advertStorageService = advertStorageService;
             Configuration = configuration;
