@@ -29,7 +29,7 @@ namespace AdvertApi.Services
 
             try
             {
-               
+
 
                 using (var client = new AmazonDynamoDBClient())
                 {

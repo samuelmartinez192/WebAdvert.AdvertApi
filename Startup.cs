@@ -31,6 +31,11 @@ namespace AdvertApi
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient<IAdvertStorageService, DynamoDBAdvertStorage>();
             services.AddTransient<StorageHealthCheck>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllOrigin", policy => policy.WithOrigins("*").AllowAnyHeader());
+            });
+
             services.AddControllers();
             services.AddHealthChecks();
         }
@@ -47,7 +52,7 @@ namespace AdvertApi
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
