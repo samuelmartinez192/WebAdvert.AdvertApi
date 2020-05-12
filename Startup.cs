@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using AutoMapper;
 using AdvertApi.Services;
 using AdvertApi.HealthChecks;
+using Microsoft.OpenApi.Models;
 
 namespace AdvertApi
 {
@@ -36,6 +37,16 @@ namespace AdvertApi
                 options.AddPolicy("AllOrigin", policy => policy.WithOrigins("*").AllowAnyHeader());
             });
 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Web Advertisement Apis",
+                    Version = "version 1"
+                  
+                });
+            });
+
             services.AddControllers();
             services.AddHealthChecks();
         }
@@ -51,6 +62,12 @@ namespace AdvertApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Web Advert Api");
+            });
 
             app.UseCors();
 
