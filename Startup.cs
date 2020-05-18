@@ -14,6 +14,11 @@ using AutoMapper;
 using AdvertApi.Services;
 using AdvertApi.HealthChecks;
 using Microsoft.OpenApi.Models;
+using Amazon.Util;
+using Amazon.ServiceDiscovery;
+using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Amazon.ServiceDiscovery.Model;
 
 namespace AdvertApi
 {
@@ -43,7 +48,7 @@ namespace AdvertApi
                 {
                     Title = "Web Advertisement Apis",
                     Version = "version 1"
-                  
+
                 });
             });
 
@@ -69,6 +74,8 @@ namespace AdvertApi
                 c.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Web Advert Api");
             });
 
+            //await RegisterToCloudMap();
+
             app.UseCors();
 
             app.UseEndpoints(endpoints =>
@@ -77,5 +84,25 @@ namespace AdvertApi
                 endpoints.MapHealthChecks("/health");
             });
         }
+
+        //private async Task RegisterToCloudMap()
+        //{
+        //    const string serviceId = "srv-n36g7df6g3fxlapl";
+
+        //    var instanceId = EC2InstanceMetadata.InstanceId;
+
+        //    if (!String.IsNullOrEmpty(instanceId))
+        //    {
+        //        var ipv4 = EC2InstanceMetadata.PrivateIpAddress;
+        //        var client = new AmazonServiceDiscoveryClient();
+        //        await client.RegisterInstanceAsync(new RegisterInstanceRequest
+        //        {
+        //            InstanceId = instanceId,
+        //            ServiceId = serviceId,
+        //            Attributes = new Dictionary<string, string>() { { "AWS_INSTANCE_IPV4" , ipv4 },
+        //            { "AWS_INSTANCE_PORT","80" } }
+        //        });
+        //    }
+        //}
     }
 }
