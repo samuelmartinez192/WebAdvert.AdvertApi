@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdvertApi.Models;
+using AdvertApi.Models.Messages;
 using AdvertApi.Services;
 using Amazon.DynamoDBv2;
 using Amazon.SimpleNotificationService;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using S.AdvertApi.Models.Messages;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
